@@ -1,0 +1,17 @@
+#demoCanvas{
+    border: 1px solid black;
+    position:relative;
+    left:20%;
+}
+
+body{
+    margin : 0;
+}
+
+.canvasDiv{
+    width:100%;
+    height:75%;
+    border: 1px solid black;
+    position:relative;
+    top:2.5rem;
+}
