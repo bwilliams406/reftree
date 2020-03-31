@@ -484,13 +484,37 @@ function init() {
   ];
 
   loader = new createjs.LoadQueue(false);
+  loader.addEventListener("complete", loadSky);
+  loader.loadManifest(manifest, true, "./art");
+
+  loader = new createjs.LoadQueue(false);
   loader.addEventListener("complete", loadtree);
   loader.loadManifest(manifest, true, "./art");
 
-          
+  loadSky();      
   loadtree();
+  
 
 };
+
+function loadSky() {
+  const canvas = document.querySelector('canvas');
+
+  canvas.width = window.innerWidth * .6;
+  canvas.height = window.innerHeight * .9;
+
+  let stage = new createjs.Stage("demoCanvas");
+  let skyContainer = new createjs.Container();
+  
+  let sky = new createjs.Shape();
+  sky.graphics.beginBitmapFill(loader.getResult("sky")).drawRect(canvas.width/2 - 20, 700, canvas.width/2*.05, 300);
+
+  stage.addChild(skyContainer);
+  createjs.Ticker.setFPS(60);
+              createjs.Ticker.addEventListener("tick", stage);
+              createjs.Tween.get(sky)
+                .to({alpha: 1}, 0);
+}
 
 function loadtree(){
 
@@ -520,7 +544,7 @@ function loadtree(){
 
   // stage.addChild(tree);
   // stage.update();
- 
+  
 
               //if there is a name in the first spot, create a stump for the tree which represents account holder.
               if(firstNodeName){
@@ -713,9 +737,20 @@ function loadtree(){
 
               tree_container.addChild(branch_container, leaf_container); //text_container
               stage.addChild(tree_container);
-              stage.update();
-
-
+              createjs.Ticker.setFPS(60);
+              createjs.Ticker.addEventListener("tick", stage);
+              createjs.Tween.get(stump)
+                .to({alpha: 0}, 0)
+                .to({alpha: 0.2}, 0)
+                .to({alpha: 1}, 10000);
+              createjs.Tween.get(branch_container)
+                .to({alpha: 0}, 0)
+                .to({alpha: 0}, 0)
+                .to({alpha: 1}, 10000);
+              createjs.Tween.get(leaf_container)
+                .to({alpha: 0}, 0)
+                .to({alpha: 1}, 10000);
+ 
               
 };  
 
