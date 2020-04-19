@@ -472,7 +472,7 @@ var firstNodeName, sky, ground, leaf;
 function init() {
 
 
-  // this is where you add photos for the preloader for use in 2nd function 
+  // this is where you add photos for the preloader for use in 2nd function  push 
   manifest = [
     {src: "./art/mdleafsgrp.png", id: "mdLeafGrp"},
     {src: "./art/smleafred.png", id: "smLeafRed"},
@@ -485,38 +485,14 @@ function init() {
     {src: "./art/ground.png", id: "ground"},
   ];
 
-  loader = new createjs.LoadQueue(false);
-  loader.addEventListener("complete", loadSky);
-  loader.loadManifest(manifest, true, "./art");
 
   loader = new createjs.LoadQueue(false);
   loader.addEventListener("complete", loadtree);
   loader.loadManifest(manifest, true, "./art");
-
-  loadSky();      
+     
   loadtree();
-  
-
 };
 
-function loadSky() {
-  const canvas = document.querySelector('canvas');
-
-  canvas.width = window.innerWidth * .6;
-  canvas.height = window.innerHeight * .9;
-
-  let stage = new createjs.Stage("demoCanvas");
-  let skyContainer = new createjs.Container();
-  
-  let sky = new createjs.Shape();
-  sky.graphics.beginBitmapFill(loader.getResult("sky")).drawRect(canvas.width/2 - 20, 700, canvas.width/2*.05, 300);
-
-  stage.addChild(skyContainer);
-  createjs.Ticker.setFPS(60);
-              createjs.Ticker.addEventListener("tick", stage);
-              createjs.Tween.get(sky)
-                .to({alpha: 1}, 0);
-}
 
 function loadtree(){
 
@@ -537,15 +513,6 @@ function loadtree(){
   firstNodeName = jsonObject.name;
   firstNodeId   = jsonObject.id;
 
-
-//tree shrubery
-
-  // tree = new createjs.Bitmap(loader.getResult("treebush"));
-  // tree.x = 0;
-  // tree.y = 0;
-
-  // stage.addChild(tree);
-  // stage.update();
   
 
               //if there is a name in the first spot, create a stump for the tree which represents account holder.
@@ -563,6 +530,21 @@ function loadtree(){
                   branch_container.addChild(stump);
                   
               };
+
+
+
+              
+
+                                        
+              let sky = new createjs.Shape();
+              sky.graphics.beginBitmapFill(loader.getResult("sky")).drawRect(1, 1, canvas.width , 400);
+              stage.addChild(sky);
+            
+
+
+
+
+
    
               // D = length of json object
               let D = jsonObject.children.length;
@@ -758,6 +740,10 @@ function loadtree(){
 // fade in
               createjs.Ticker.setFPS(60);
               createjs.Ticker.addEventListener("tick", stage);
+
+
+
+
               createjs.Tween.get(stump)
                 .to({alpha: 0}, 0)
                 .to({alpha: 0.2}, 0)
