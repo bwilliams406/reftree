@@ -471,6 +471,8 @@ var firstNodeName, sky, ground, leaf;
 
 function init() {
 
+
+  // this is where you add photos for the preloader for use in 2nd function 
   manifest = [
     {src: "./art/mdleafsgrp.png", id: "mdLeafGrp"},
     {src: "./art/smleafred.png", id: "smLeafRed"},
@@ -614,6 +616,8 @@ function loadtree(){
 
 //============================================================START OF SECOND LEVEL NODES===============================================================================
 
+
+//alignment of leaves on canvas..... change the decimal numbers to change leaf spread 
                     var grandchild_index = 0;
                         child.children.forEach(function(grandchild) {
 
@@ -692,10 +696,14 @@ function loadtree(){
 
                               var stroke = 2;
 
+                              //====== second level branch start
+
                               var second_lvl_Branches = new createjs.Shape();                            
                               second_lvl_Branches.graphics.clear().beginBitmapStroke(loader.getResult("treebark")).setStrokeStyle(stroke, 'butt', 'bevel').moveTo(x2+11, y2+10).bezierCurveTo(x2+11, y2+10, x2, y2, x3+11, y3+10);
                                 branch_container.addChild(second_lvl_Branches);
 
+
+                                //======= random leaf generator for different colors 
                                 var redLeaf = loader.getResult("smLeafRed");
                                 var orgLeaf = loader.getResult("smLeafGrn");
                                 var ylwLeaf = loader.getResult("smLeafOrg");
@@ -709,6 +717,9 @@ function loadtree(){
                                 second_lvl_leafs.y = y3+35;
                                 second_lvl_leafs.rotation = 140;
 
+
+                                //===text, ignore
+
                                 var second_lvl_name = new createjs.Text(grandchild.name  , "8px Arial", "black");
                                 second_lvl_name.x = x3-13;
                                 second_lvl_name.y = y3+10;
@@ -718,6 +729,9 @@ function loadtree(){
                                 function handleClick(event){
                                   console.log("2nd lvl" + grandchild.name)
                                 };
+
+
+                                //add to containers
                               text_container.addChild(second_lvl_name);
                               leaf_container.addChild(second_lvl_leafs);
 
@@ -734,9 +748,14 @@ function loadtree(){
 
 
 
-
+              // add to containers, update stage
               tree_container.addChild(branch_container, leaf_container); //text_container
               stage.addChild(tree_container);
+
+
+
+
+// fade in
               createjs.Ticker.setFPS(60);
               createjs.Ticker.addEventListener("tick", stage);
               createjs.Tween.get(stump)
