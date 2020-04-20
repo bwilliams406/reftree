@@ -469,10 +469,9 @@ jsonObject = {
 var canvas, stage, tree_container, branch_container, leaf_container,text_container;
 var firstNodeName, sky, ground, leaf;
 
+
 function init() {
 
-
-  // this is where you add photos for the preloader for use in 2nd function  push 
   manifest = [
     {src: "./art/mdleafsgrp.png", id: "mdLeafGrp"},
     {src: "./art/smleafred.png", id: "smLeafRed"},
@@ -486,12 +485,17 @@ function init() {
   ];
 
 
+
   loader = new createjs.LoadQueue(false);
   loader.addEventListener("complete", loadtree);
   loader.loadManifest(manifest, true, "./art");
+
      
   loadtree();
+  
+
 };
+
 
 
 function loadtree(){
@@ -512,266 +516,97 @@ function loadtree(){
   
   firstNodeName = jsonObject.name;
   firstNodeId   = jsonObject.id;
+  var first_lvl_Branches;
 
+//tree shrubery
+
+  // tree = new createjs.Bitmap(loader.getResult("treebush"));
+  // tree.x = 0;
+  // tree.y = 0;
+
+  // stage.addChild(tree);
+  // stage.update();
   
 
               //if there is a name in the first spot, create a stump for the tree which represents account holder.
               if(firstNodeName){
-                var stump = new createjs.Shape();
+                  var stump = new createjs.Shape();
 
-                stumpX = canvas.width/2 - 20;
-                stumpY = canvas.height-canvas.height*.3;
-                stumpW = canvas.width/2*.05;
-                stumpH = canvas.height*.3;
+                  stumpX = canvas.width/2 - 20;
+                  stumpY = canvas.height-canvas.height*.3;
+                  stumpW = canvas.width/2*.05;
+                  stumpH = canvas.height*.28;
 
-                stump.graphics.beginBitmapFill(loader.getResult("treebark")).drawRect(stumpX ,stumpY, stumpW, stumpH);
-                // stump.graphics.beginFill("brown").drawRect(canvas.width/2 - 20 , 700, canvas.width/2*.05, 300);
+                  stump.graphics.beginBitmapFill(loader.getResult("treebark")).drawRect(stumpX ,stumpY, stumpW, stumpH);
 
-                var first_node_name = new createjs.Text(jsonObject.name  , "12px Arial", "black");
-                  first_node_name.x = canvas.width/2 - 30;
-                  first_node_name.y = 800;
-                  first_node_name.textBaseline = "alphabetic";
-
-                text_container.addChild(first_node_name);
-                branch_container.addChild(stump);
-
-
-                stage.addChild(stump);
-                stage.update();
-
-                
-            };
-
-
-
-              
-
-                                        
-//               let sky = new createjs.Shape();
-//               sky.graphics.beginBitmapFill(loader.getResult("sky")).drawRect(1, 1, canvas.width , 400);
-//               stage.addChild(sky);
-            
-
-
-
-
-
-   
-//               // D = length of json object
-//               let D = jsonObject.children.length;
-
-//               var Degrees = 90-(D-1) * 10;
-
-//               // For each child object, create a new sqaure and draw it on the canvas
-//               jsonObject.children.forEach(function(child, index) {
-//                   x = canvas.width/2-12.5;
-//                   y = 700;
-//                   d = canvas.width/2*.3;
-//                   var name = child.name;
-
-//                   function degrees_to_radians(degrees){
-//                     var pi = Math.PI;
-//                     return degrees*(pi/180);
-//                   }
-
-//                   x2 = x+(d*Math.cos(degrees_to_radians(360 - Degrees)));
-//                   y2 = y+(d*Math.sin(degrees_to_radians(360 - Degrees)));
-
-//                   var stroke = 8;
-//                   var color = "brown";
-
-//                   var first_lvl_Branches = new createjs.Shape();
-
-//                   first_lvl_Branches.graphics.clear().beginBitmapStroke(loader.getResult("treebark")).setStrokeStyle(stroke, 'butt', 'bevel').bezierCurveTo(x+9, y, x, y+25, x2+12, y2+11);
-
-//                       // first_lvl_Branches.graphics.clear().setStrokeStyle(stroke, 'round', 'round').beginStroke(color).moveTo(x+9, y).bezierCurveTo(x+9, y, x, y+25, x2+12, y2+11);
-//                       branch_container.addChild(first_lvl_Branches);
-
-//                       first_lvl_leafs = new createjs.Bitmap(loader.getResult("mdLeafGrp"));
-//                       first_lvl_leafs.x = x2+135;
-//                       first_lvl_leafs.y = y2+20;
-//                       first_lvl_leafs.rotation = 140;
-
-//                       var first_lvl_name = new createjs.Text(name  , "8px Arial", "black");
-//                       first_lvl_name.x = x2-13;
-//                       first_lvl_name.y = y2+10;
-//                       first_lvl_name.textBaseline = "alphabetic";
-
-//                       first_lvl_leafs.addEventListener("click", handleClick);
-//                         function handleClick(event){
-
-//                         };
-
-//                       text_container.addChild(first_lvl_name);
-//                       leaf_container.addChild(first_lvl_leafs);
-
-//                     Degrees += 19.8;
-
-// //============================================================START OF SECOND LEVEL NODES===============================================================================
-
-
-// //alignment of leaves on canvas..... change the decimal numbers to change leaf spread 
-//                     var grandchild_index = 0;
-//                         child.children.forEach(function(grandchild) {
-
-//                           if(grandchild_index == 0 ){
-
-//                             var d2 = canvas.width/2*.39;
-
-//                             var Angle=22;
-
-//                           }
-
-//                           if(grandchild_index == 1 ){
-
-//                             var d2 = canvas.width/2*.44;
-
-//                             var Angle=13;
-
-//                           }
-
-//                           if(grandchild_index == 2 ){
-
-//                             var d2 = canvas.width/2*.51;
-//                             var Angle=22;
-//                           }
-
-//                           if(grandchild_index == 3 ){
-
-//                             var d2 = canvas.width/2*.56;
-//                             var Angle=15;
-//                           }
-
-//                           if(grandchild_index == 4 ){
-
-//                             var d2 = canvas.width/2*.62;
-//                             var Angle=22;
-//                           }
-
-//                           if(grandchild_index == 5 ){
-
-//                             var d2 = canvas.width/2*.68;
-//                             var Angle=15;
-//                           }
-
-//                           if(grandchild_index == 6 ){
-
-//                             var d2 = canvas.width/2*.74;
-//                             var Angle=21;
-//                           }
-
-//                           if(grandchild_index == 7 ){
-
-//                             var d2 = canvas.width/2*.80;
-//                             var Angle=14;
-//                           }
-
-//                           if(grandchild_index == 8 ){
-
-//                             var d2 = canvas.width/2*.86;
-//                             var Angle=20;
-//                           }
-
-//                           if(grandchild_index == 9 ){
-
-//                             var d2 = canvas.width/2*.92;
-//                             var Angle=13;
-//                           }
-
-//                           if(grandchild_index == 10 ){
-
-//                             var d2 = canvas.width/2*.98;
-//                              var Angle=19;
-//                           }
-
-//                             x3 = x+(d2*Math.cos(degrees_to_radians(Angle - Degrees)));
-//                             y3 = y+(d2*Math.sin(degrees_to_radians(Angle - Degrees)));
-
-//                               var stroke = 2;
-
-//                               //====== second level branch start
-
-//                               var second_lvl_Branches = new createjs.Shape();                            
-//                               second_lvl_Branches.graphics.clear().beginBitmapStroke(loader.getResult("treebark")).setStrokeStyle(stroke, 'butt', 'bevel').moveTo(x2+11, y2+10).bezierCurveTo(x2+11, y2+10, x2, y2, x3+11, y3+10);
-//                                 branch_container.addChild(second_lvl_Branches);
-
-
-//                                 //======= random leaf generator for different colors 
-//                                 var redLeaf = loader.getResult("smLeafRed");
-//                                 var orgLeaf = loader.getResult("smLeafGrn");
-//                                 var ylwLeaf = loader.getResult("smLeafOrg");
-//                                 var grnLeaf = loader.getResult("smLeafYlw");
-                              
-//                                 const leafs = [redLeaf, orgLeaf, ylwLeaf, grnLeaf];
-//                                 const randomLeaf = leafs[Math.floor(Math.random() * leafs.length)];
-
-//                               second_lvl_leafs = new createjs.Bitmap(randomLeaf);
-//                                 second_lvl_leafs.x = x3+35;
-//                                 second_lvl_leafs.y = y3+35;
-//                                 second_lvl_leafs.rotation = 140;
-
-
-//                                 //===text, ignore
-
-//                                 var second_lvl_name = new createjs.Text(grandchild.name  , "8px Arial", "black");
-//                                 second_lvl_name.x = x3-13;
-//                                 second_lvl_name.y = y3+10;
-//                                 second_lvl_name.textBaseline = "alphabetic";
-
-//                                 second_lvl_leafs.addEventListener("click", handleClick);
-//                                 function handleClick(event){
-//                                   console.log("2nd lvl" + grandchild.name)
-//                                 };
-
-
-//                                 //add to containers
-//                               text_container.addChild(second_lvl_name);
-//                               leaf_container.addChild(second_lvl_leafs);
-
-
-//                           grandchild_index ++;
-
-//                         });
-
-//                         child.children.forEach(function(grandchild) {
-
-
-//                         })
-//               });   
-
-
-
-//               // add to containers, update stage
-//               tree_container.addChild(branch_container, leaf_container); //text_container
-//               stage.addChild(tree_container);
-
-
-
-
-// // fade in
-//               createjs.Ticker.setFPS(60);
-//               createjs.Ticker.addEventListener("tick", stage);
-
-
-
-
-//               createjs.Tween.get(stump)
-//                 .to({alpha: 0}, 0)
-//                 .to({alpha: 0.2}, 0)
-//                 .to({alpha: 1}, 10000);
-//               createjs.Tween.get(branch_container)
-//                 .to({alpha: 0}, 0)
-//                 .to({alpha: 0}, 0)
-//                 .to({alpha: 1}, 10000);
-//               createjs.Tween.get(leaf_container)
-//                 .to({alpha: 0}, 0)
-//                 .to({alpha: 1}, 10000);
+                  stage.addChild(stump);
  
-              
+              };
+   
+              // D = length of json object
+              let D = jsonObject.children.length;
+
+              var Degrees = 90-(D-1) * 10;
+
+              // For each child object, create a new sqaure and draw it on the canvas
+              jsonObject.children.forEach(function(child, index) {
+                  x = canvas.width/2 -4.5;
+                  y = stumpH*2.6;
+                  d = canvas.width/2*.3;
+                  var name = child.name;
+
+                  function degrees_to_radians(degrees){
+                    var pi = Math.PI;
+                    return degrees*(pi/180);
+                  }
+
+                  x2 = x+(d*Math.cos(degrees_to_radians(360 - Degrees)));
+                  y2 = y+(d*Math.sin(degrees_to_radians(360 - Degrees)));
+
+                  var stroke = 8;
+                  var color = "brown";
+
+                  var first_lvl_Branches = new createjs.Shape();
+
+
+                  
+
+                  first_lvl_Branches.graphics.clear()
+                  .beginBitmapStroke(loader.getResult("treebark"))
+                  .setStrokeStyle(stroke, 'butt', 'bevel')
+                  .bezierCurveTo(x, y, x, y+25, x2+12, y2+11);
+
+                      // first_lvl_Branches.graphics.clear().setStrokeStyle(stroke, 'round', 'round').beginStroke(color).moveTo(x+9, y).bezierCurveTo(x+9, y, x, y+25, x2+12, y2+11);
+                      branch_container.addChild(first_lvl_Branches);
+
+
+                    Degrees += 19.8;
+
+              });   
+
+
+              tree_container.addChild(branch_container, leaf_container); //text_container
+              stage.addChild(tree_container);
+              createjs.Ticker.setFPS(60);
+              createjs.Ticker.addEventListener("tick", stage);
+
+              var zz = canvas.height-canvas.height+ -25 * -1;
+              createjs.Tween.get(stump)
+                .to({y: 1000},0)
+                .to({y: zz}, 3000);
+                // .to({y: 1}, 3000);
+
+                createjs.Tween.get(branch_container)
+                .to({scaleX: 0, alpha:0},0)
+
+                .to({scaleX: 0.1, alpha:0 },2000)
+
+                .to({scaleX: 0.3, alpha:0},3000)
+  
+                .to({scaleX: 0.7, alpha:0},4000)
+  
+                .to({scaleX: 1, alpha:1},6000)
+
+
+            
 };  
-
-
-
-//     // child.children.forEach(function(grandchild) {
-//     //     // console.log(grandchild.name);
-//     // });
